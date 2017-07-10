@@ -1,0 +1,109 @@
+/*回款计划*/
+.main-wrap{ background: #ebebeb; margin-top: 0.2rem;}
+.plan-wrap{ background: #ffffff; }
+.plan-wrap .date{ background: #ebf7ff; width: 100%; height: 0.5rem; line-height: 0.5rem; font-size: 0.26rem; color: #2c91ef; padding-left: 0.3rem;}
+.plan-box{ background: #ffffff; }
+.plan-box .time{ font-size: 0.3rem; color: #999999;left: 0.3rem; top: 0.45rem; width: 1.18rem;}
+.plan-box .time span{ font-size: 0.26rem; color: #999999;display: block}
+.plan-r{ padding-left: 1.18rem;width: 100%;}
+.plan-con{border-bottom: 0.02rem solid #e6e6e6;padding: 0.45rem 0.3rem 0.45rem 0;}
+
+.plan-con .fr{text-align: left; padding-left: 0.18rem; width: 95%;}
+.plan-con .fr p:nth-child(1){ font-size: 0.3rem; color: #333333;}
+.plan-con .fr p:nth-child(2){ font-size: 0.26rem; color: #999;}
+.plan-con .logo{ width: 0.64rem; height: 0.64rem;text-align: center;vertical-align: middle; margin-left: 0.15rem;}
+.plan-wrap .plan-box:last-child .plan-r .plan-con{ border-bottom:0;}
+.main-wrap .plan-wrap:last-child { box-shadow: 0 1px 15px 0 rgba(8, 1, 2, 0.05);}
+
+/*在投平台*/
+.invest-wrap{ background: #fff; margin-bottom: 0.2rem;}
+.invest-wrap .title{ font-size: 0.3rem;color: #333333; border-bottom:0.02rem solid #e6e6e6;padding: 0.4rem 0;}
+.invest-wrap .title span{ font-size: 0.26rem; color: #333333;}
+.invest-wrap .title .logo{ width: 0.64rem; height: 0.64rem;text-align: center;vertical-align: middle; margin-left: 0.3rem;margin-right: 0.15rem;display: inline-block;}
+.invest-con{margin: 0 0.3rem; border-bottom:0.02rem dashed #e6e6e6;padding: 0.45rem 0;}
+.invest-con .name{ font-size: 0.26rem; color: #999999;}
+.invest-con .name:before{content:''; display:inline-block; width: 0.08rem; height: 0.08rem; background: #999; margin-right: 0.1rem;-webkit-border-radius: 50%;vertical-align: 3px;}
+.invest{ padding-top: 0.3rem;}
+.invest div{width: 33.33%;text-align: center; font-size: 0.26rem; color: #333333;}
+.invest div:nth-child(1){text-align: left;}
+.invest div:nth-child(3){text-align: right;}
+.invest-wrap .invest-con:last-child{ border-bottom:0;}
+
+/*记一笔*/
+.pr-30{ padding-right: 0.3rem;}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {color: #cccccc;}
+.record-wrap{ background: #ebebeb;}
+.record{ padding-left: 0.3rem; background: #fff;}
+.inp-rec{width: 100%; padding-left: 1.5rem; position: relative; border-bottom:0.02rem solid #e6e6e6; padding-right: 0.4rem;}
+.inp-rec:last-child{ border-bottom:0;}
+.pr1{ padding-right: 0.6rem;}
+.inp-rec span{display: inline-block; font-size: 0.3rem; color: #333333; position: absolute;left: 0; top: 0.3rem;}
+.inp-rec input{width: 100%;border: 0; height: 1rem;display: block;text-align: right; color: #333333; font-size: 0.3rem;}
+.inp-rec em{ font-size: 0.3rem; color: #333333; position: absolute;right: 0.3rem;top:0.33rem;}
+.select-box{width: 100%;height: 1rem;padding-right: 0.4rem;}
+.select-box select{height: 1rem;border: 0;outline: none;font-family: inherit; color: #333333; font-size: 0.3rem; position: absolute; top: 0;right: 0.55rem; direction: rtl;width: 65%;}
+.select-box select option{display: block;}
+.select-box select option:nth-child(1){ color:#cccccc;}
+.ico-arrow-r{ background-image: url(../images/arw.png);width: 0.12rem; height: 0.22rem; position: absolute; top: 0.4rem;right: 0.3rem;}
+.cycle-ipnut{ padding-right: 1.3rem;}
+.inp-rec .i-cycle{ font-size: 0.3rem; color: #cccccc;display: inline-block;width: 0.61rem; height: 0.5rem;text-align: center; line-height: 0.5rem; position: absolute; top: 0.26rem;}
+.inp-rec .icon-month{-webkit-border-radius: 0.3rem 0 0 0.3rem; border-top:0.02rem solid #cccccc;border-left:0.02rem solid #cccccc;border-bottom:0.02rem solid #cccccc;right: 0.91rem;}
+.inp-rec .icon-day{-webkit-border-radius:0 0.3rem 0.3rem 0; border-top:0.02rem solid #cccccc;border-right:0.02rem solid #cccccc;border-bottom:0.02rem solid #cccccc;right: 0.3rem;}
+.inp-rec .i-cycle.cur{ background: #45a9fc; color: #ffffff;border: 0.02rem solid #45a9fc;}
+
+.date-input{ line-height: 1rem;}
+.date-input.placeholder::before{ width:100%; content:attr(placeholder); background-color:#fff; color: #cccccc; padding-right: 0.2rem;}
+.date-input.placeholder:hover::before{ width:0; content:""; }
+
+.to-dl{width: 80%; text-align: center;font-size: 0.24rem; color: #45a9fc;margin: 0.5rem auto 0; padding-bottom: 0.5rem;}
+
+.p-30{padding: 0 0.3rem; margin-top: 0.4rem;}
+.a-box a{display: block;}
+.a-box .btn{width: 100%; height: 0.88rem;-webkit-border-radius: 0.08rem;text-align: center; font-size: 0.3rem; line-height: 0.88rem;}
+.a-box .finish{color: #fff; background: #45a9fc;}
+
+/*选择平台*/
+.platform-wrap{ background: #ebebeb; margin-top: 0.2rem;}
+.select-platform{ background: #fff;padding: 0 0.4rem 0 0.3rem; height: 10000px; }
+.select-platform ul li { border-bottom:0.02rem solid #ececec;padding:0.38rem 0 0.38rem 0.85rem; position: relative;}
+.select-platform ul li :last-child{ border-bottom:0;}
+.select-platform ul li  .logo{ width: 0.64rem; height: 0.64rem;text-align: center;vertical-align: middle;left: 0;top:0.4rem; position: absolute;}
+.select-platform ul li  .logo img{display: block;}
+.select-platform ul li  .name{ font-size: 0.3rem; color: #333;}
+.select-platform ul li  .url{ font-size: 0.26rem; color: #999;}
+
+.shortcuts-ctn{position: fixed;top: 50%;transform: translateY(-50%);right: 0;display: flex;flex-direction: column;text-align: center;font-family: 'Microsoft YaHei';}
+.shortcuts-ctn > a{width: 24px;height: 20px;text-align: center;text-decoration: none;color: #45a9fc; font-size: 0.24rem;}
+.shortcuts-ctn > a[href="#hook-search"]{border: 2px solid #999;width: 7px;height: 7px;border-radius: 50%;transform: translate(80%,-50%);}
+.shortcuts-ctn > a[href="#hook-search"]::after{content: '';display: block;width: 5px;height: 0;border: 1px solid #999;transform: rotate(45deg) translate(140%,110%);}
+/*.list{position: relative;padding: 0px;list-style-type: none;}*/
+/*.list li{display: flex;align-items: center;height: 40px;padding-left: 10px;border-top: 1px solid #EFEFF4;}*/
+.list li.hooks{display: block;height: 0.5rem;line-height: 0.5rem;background-color: #EFEFF4;border-top: none; font-size: 0.3rem; font-weight:bold;
+	padding: 0 0 0 0.2rem!important;}
+.list li.hooks + li{border-top: none;}
+
+input.search{width: 100%;height: 40px;line-height: 40px;border: none;border-bottom: 1px solid #EFEFF4;font-size: 16px;outline: none;}
+.search-result .list li{border-top: none;border-bottom: 1px solid #EFEFF4;}
+
+
+
+/*媒体查询*/
+@media screen and (device-aspect-ratio: 40/71) {
+
+	}
+@media (device-width:375px) and (-webkit-min-device-pixel-ratio:2){
+
+	}
+@media (device-width:414px) and (-webkit-min-device-pixel-ratio:3.0){
+
+	}
+@media only screen and (min-device-width :1080px) and (-webkit-min-device-pixel-ratio : 2.5){
+	}
+
+
+
+
+
+
+
+

@@ -1,0 +1,92 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>记一笔</title>
+	<meta name="keywords" content="团贷网,互联网金融,P2P网贷,P2P理财">
+	<meta name="description" content="团贷网是中国互联网金融领军企业，首家注册资本一亿元股份制网贷平台，解决中小微企业资金需求，为投资用户带来高收益。100%本息担保、100%人工审核、足额抵押物担保，确保投资理财用户资金安全。">
+	<script type="text/javascript" src="js/rem.js"></script>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/main.css?v=23232" />
+</head>
+<body>
+<section class="wrap pos-r scroll scroll-active record-wrap">
+	<div class="record">
+		<div class="inp-rec">
+			<span>P2P平台</span>
+			<input type="text" placeholder="请输入平台名称">
+		</div>
+		<div class="inp-rec">
+			<span>标的名称</span>
+			<input type="text" placeholder="50个字符以内（选填）">
+		</div>
+		<div class="inp-rec pr1">
+			<span>投资本金</span>
+			<input type="text" placeholder="请输入投资金额 元">
+			<em>元</em>
+		</div>
+		<div class="inp-rec pr1">
+			<span>年化利率</span>
+			<input type="text" placeholder="请输入年化利率">
+			<em>%</em>
+		</div>
+		<div class="inp-rec">
+			<span>投资周期</span>
+			<input type="text" placeholder="请输入投资周期" class="cycle-ipnut">
+			<i class="icon-month i-cycle cur" id="for_month">月</i>
+			<i class="icon-day i-cycle" id="for_day">日</i>
+		</div>
+		<div class="inp-rec date-rec">
+			<span>起息日期</span>
+			<input type="date" placeholder="请选择起息时间" onClick="$(this).removeClass('placeholder')" class="date-input placeholder">
+			<i class="ico-arrow-r pos-a bg-size"></i>
+		</div>
+		<div class="inp-rec">
+			<span>回款方式</span>
+			<div class="select-box">
+				<select  dir="rtl">
+					<option>请选择回款方式</option>
+					<option>到期还本付息</option>
+					<option>等额本息</option>
+					<option>每月付息到期还本</option>
+					<option>每季付息到期还本</option>
+					<option>每日付息到期还本</option>
+				</select>
+			</div>
+			<i class="ico-arrow-r pos-a bg-size"></i>
+		</div>
+	</div>
+	<div class="a-box p-30">
+		<a href="" class="btn finish">提交</a>
+	</div>
+
+	<a href="download.html" class="text-center block to-dl"> 开启自动同步记账功能及更多选项请下载APP</a>
+</section>
+<script type="text/javascript" src="js/fastclick-jquery-1.8.3.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+
+        var forMonth = $("#for_month");
+        var forDay = $("#for_day");
+
+        forMonth.click(function(){
+            if(forDay.hasClass('cur')){
+                forMonth.addClass('cur');
+                forDay.removeClass('cur');
+            }
+            forMonth.addClass('cur');
+            forDay.removeClass('cur');
+        })
+        forDay.click(function(){
+            forMonth.removeClass('cur');
+            forDay.addClass('cur');
+        })
+
+    });
+</script>
+</body>
+</html>

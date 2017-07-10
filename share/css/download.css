@@ -1,0 +1,77 @@
+
+.download{ background: url("../images/top-bg.jpg") top;width: 7.5rem;height: 7.52rem;background-size: 100% auto; padding-top: 0.6rem;}
+.download .logo{ background-image: url(../images/logo.png);width: 5.34rem;height: 1.8rem;margin: 0 auto;}
+.download .text1{ background-image: url(../images/text1.png);width: 4.31rem;height: 0.46rem;left: 0.7rem;top: 4.14rem;}
+.download .text2{ background-image: url(../images/text2.png);width: 4.78rem;height: 0.43rem;left: 0.7rem;top: 5.14rem;}
+.download .text3{ background-image: url(../images/text3.png);width: 4.31rem;height: 0.45rem;left: 0.7rem;top: 6.14rem;}
+.download .phone{ background-image: url(../images/phone.png);width: 7.5rem;height: 8.27rem; position: absolute;left: 0; top: 3.5rem;}
+
+.dl-a{ width: 100%;left: 0; top: 9.5rem; position: absolute;}
+.dl-a a{display: block; width: 6.9rem; height: 0.8rem; line-height: 0.8rem;-webkit-border-radius: 0.3rem;text-align: center; font-size: 0.3rem;margin: 0 auto 0.4rem;}
+.dl-a .android{ background: #45a9fc; color: #ffffff;}
+.dl-a .ios{ background: transparent;border: 0.02rem solid #45a9fc; color: #45a9fc;}
+.weixin-share{width: 4.06rem; height: 2.87rem;position: fixed; top: 0.3rem;;right: 0.4rem;z-index: 1200;display: none;}
+#mask_Layer,#zhiyin{display: none;}
+.maskLayer{ height: 100%; width: 100%; background: rgba(0,0,0,.7); position:absolute; top: 0; left: 0; z-index: 1000;}
+
+
+.download .phone{
+	animation-name: translateUp;
+	animation-duration: 0.5s;
+	animation-delay:0.2s;
+	-webkit-animation-name: translateUp;
+	-webkit-animation-duration: 0.5s;
+	-webkit-animation-delay:0.2s;
+	animation-fill-mode: forwards;
+	-webkit-animation-fill-mode: forwards;
+	}
+
+@-webkit-keyframes translateUp{
+	0%{
+		-webkit-transform: translateY(0);
+		}
+	100%{
+		-webkit-transform: translateY(-40px);
+		}
+	}
+
+@keyframes translateUp{
+	0%{
+		transform: translateY(0);
+		}
+	100%{
+		transform: translateY(-40px);
+		}
+	}
+
+
+.download .text1{-webkit-animation: text 0.8s 0.6s ease-out both;}
+.download .text2{-webkit-animation: text 0.8s 1s ease-out both;}
+.download .text3{-webkit-animation: text 0.8s 1.4s ease-out both;}
+@-webkit-keyframes text{
+	0%{background-size: 0 0;background-position: -6.7rem -2.9rem;}
+	100%{background-size: 100% 100%;background-position: 0 0;}
+	}
+
+
+
+/*媒体查询*/
+@media screen and (device-aspect-ratio: 40/71) {
+
+	}
+@media (device-width:375px) and (-webkit-min-device-pixel-ratio:2){
+
+	}
+@media (device-width:414px) and (-webkit-min-device-pixel-ratio:3.0){
+
+	}
+@media only screen and (min-device-width :1080px) and (-webkit-min-device-pixel-ratio : 2.5){
+	}
+
+
+
+
+
+
+
+

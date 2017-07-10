@@ -1,0 +1,114 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>回款计划</title>
+	<meta name="keywords" content="团贷网,互联网金融,P2P网贷,P2P理财">
+	<meta name="description" content="团贷网是中国互联网金融领军企业，首家注册资本一亿元股份制网贷平台，解决中小微企业资金需求，为投资用户带来高收益。100%本息担保、100%人工审核、足额抵押物担保，确保投资理财用户资金安全。">
+	<script type="text/javascript" src="js/rem.js"></script>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/main.css?vc=dadw22222" />
+	<link rel="stylesheet" href="css/account.css" />
+</head>
+<body>
+
+<section class="wrap pos-r scroll scroll-active main-wrap">
+
+	<div class="input-box pos-r" id="setPassword">
+		<input type="button" id="txtPassword">
+		<p id="likePlaceholder">输入搜索内容</p>
+		<div class="btnsee webkit-box box-center" id="btnSee">
+			<b class="block eye-close bg-size"></b>
+		</div>
+	</div>
+
+	<div class="plan-wrap">
+		<div class="date">2017年2月</div>
+		<div class="plan-box pos-r">
+			<div class="time pos-a">
+				<div class="logo fl">
+					<img src="images/logo/tuandai.png" width="150px" alt="" class="fl">
+				</div>
+			</div>
+			<div class="plan-r">
+				<div class="plan-con clearfix">
+					<div class="fr">
+						<p class="p1">5,024.00元</p>
+						<p class="p2 text-overflow">团贷网（18565369460) - 新手234324234234234专享复投...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="plan-box pos-r">
+			<div class="time pos-a">
+				<div class="logo fl">
+					<img src="images/logo/tuandai.png" width="150px" alt="" class="fl">
+				</div>
+			</div>
+			<div class="plan-r">
+				<div class="plan-con clearfix">
+					<div class="fr">
+						<p class="p1">5,024.00元</p>
+						<p class="p2 text-overflow">pp money（18565369460) - 安盈计划1...</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<a href="download.html" class="text-center  block to-dl">使用更多完整功能请下载APP</a>
+
+</section>
+<script type="text/javascript" src="js/fastclick-jquery-1.8.3.js"></script>
+<script>
+    $(function () {
+        FastClick.attach(document.body);
+
+
+        likePlaceHolder();
+        //设置密码
+        function likePlaceHolder() {
+            var txtPassword = document.getElementById('setPassword').getElementsByTagName('input')[0];
+            var $txtPassword = $("#setPassword").find('input');
+            var placeholder = $("#likePlaceholder");
+            placeholder.click(function () {
+                if (txtPassword.value == '') {
+                    $txtPassword.focus();
+                }
+            });
+            $txtPassword.blur(function () {
+                if ($(this).val() == '') {
+                    placeholder.show();
+                }
+            });
+            txtPassword.oninput = function () {
+                if (this.value.length == 0) {
+                    placeholder.show();
+                } else {
+                    placeholder.hide();
+                }
+            }
+
+            $("#btnSee").click(function () {
+                var eye = $(this).find('b');
+
+                if ($txtPassword.attr('type') == 'password') {
+                    eye.removeClass('eye-close').addClass('eye-open');
+
+                    $("#txtPassword")[0].type="text";
+                } else {
+                    eye.removeClass('eye-open').addClass('eye-close');
+
+                    $("#txtPassword")[0].type="password";
+                }
+            });
+
+        }
+    });
+</script>
+</body>
+</html>

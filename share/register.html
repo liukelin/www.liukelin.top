@@ -1,0 +1,165 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>绑定账号</title>
+	<meta name="keywords" content="团贷网,互联网金融,P2P网贷,P2P理财">
+	<meta name="description" content="团贷网是中国互联网金融领军企业，首家注册资本一亿元股份制网贷平台，解决中小微企业资金需求，为投资用户带来高收益。100%本息担保、100%人工审核、足额抵押物担保，确保投资理财用户资金安全。">
+	<script type="text/javascript" src="js/rem.js"></script>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/account.css" />
+</head>
+<body>
+<section class="wrap pos-r scroll scroll-active">
+	<div class="input-wrap">
+		<div class="form-box">
+			<div class="input-box pos-r bb-e6e6e6">
+				<input type="text" placeholder="输入手机号">
+			</div>
+			<div class="input-box pos-r bb-e6e6e6">
+				<input type="password" placeholder="输入4位数字验证码">
+				<a href="javascript:;" class="timeout timeout-text" id="getCode">获取验证码</a>
+				<!--下面隐藏掉的是圆环倒计时-->
+				<div class="timeWrap hide" id="timeWrap">
+					<div class="time_bg"></div>
+					<div class="time">
+						<div class="time-wrap circle_right">
+							<div class="round rightcircle" id="rightcircle"></div>
+						</div>
+						<div class="time-wrap circle_left">
+							<div class="round leftcircle" id="leftcircle"></div>
+						</div>
+						<div id="show"></div>
+					</div>
+				</div>
+			</div>
+			<div class="input-box pos-r" id="setPassword">
+				<input type="password" id="txtPassword">
+				<p id="likePlaceholder">重置密码，6-18位数字、字母组合</p>
+				<div class="btnsee webkit-box box-center" id="btnSee">
+					<b class="block eye-close bg-size"></b>
+				</div>
+			</div>
+			<div class="pos-r agree-box">
+				<div class="error pos-a"><i class="bg-size"></i>验证码有误</div>
+				<div class="agree pos-a" id="agree">
+					<i class="bg-size" id="agreexieyi"></i> 我已阅读并同意《用户协议》
+				</div>
+			</div>
+
+			<div class="pr-30">
+				<div class="a-box">
+					<a href="" class="btn finish">完成</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>
+<script type="text/javascript" src="js/fastclick-jquery-1.8.3.js"></script>
+<script>
+    $(function () {
+
+        FastClick.attach(document.body);
+
+        //圆形进度条
+        var second = 181;
+        var angle = 0;
+        var timer;
+        $("#getCode").click(function() {
+            $(this).addClass('hide');
+            $("#timeWrap").removeClass('hide');
+            getTime();
+            timer = setInterval(function() {
+                getTime();
+            }, 1000)
+        })
+        timer = setInterval(function() {
+            getTime();
+        }, 1000)
+
+        function getTime() {
+            second -= 1;
+            angle += 2;
+            var rightcircle = document.getElementById('rightcircle');
+            var leftcircle = document.getElementById('leftcircle');
+            var show = document.getElementById('show');
+            show.innerHTML = second;
+            if (angle > 180) {
+                rightcircle.style.cssText = "transform: rotate(" + (45 - (angle - 180)) + "deg)";
+                leftcircle.style.cssText = "transform: rotate(-135deg)";
+                if (second <= 0) {
+                    clearInterval(timer);
+                    $("#timeWrap").addClass('hide');
+                    $("#getCode").removeClass('hide');
+                }
+            } else {
+                rightcircle.style.cssText = "transform: rotate(45deg)";
+                leftcircle.style.cssText = "transform: rotate(" + (45 - angle) + "deg)";
+            }
+        }
+
+
+        likePlaceHolder();
+
+
+        //设置密码
+        function likePlaceHolder() {
+            var txtPassword = document.getElementById('setPassword').getElementsByTagName('input')[0];
+            var $txtPassword = $("#setPassword").find('input');
+            var placeholder = $("#likePlaceholder");
+            placeholder.click(function () {
+                if (txtPassword.value == '') {
+                    $txtPassword.focus();
+                }
+            });
+            $txtPassword.blur(function () {
+                if ($(this).val() == '') {
+                    placeholder.show();
+                }
+            });
+            txtPassword.oninput = function () {
+                if (this.value.length == 0) {
+                    placeholder.show();
+                } else {
+                    placeholder.hide();
+                }
+            }
+
+            $("#btnSee").click(function () {
+                var eye = $(this).find('b');
+
+                if ($txtPassword.attr('type') == 'password') {
+                    eye.removeClass('eye-close').addClass('eye-open');
+
+                    $("#txtPassword")[0].type="text";
+                } else {
+                    eye.removeClass('eye-open').addClass('eye-close');
+
+                    $("#txtPassword")[0].type="password";
+                }
+            });
+
+        }
+
+        check()
+        function check() {
+            $("#agree").click(function(e) {
+                var i = $(this).find('i');
+                if (e.target.nodeName != 'A') {
+                    if (i.hasClass('checked')) {
+                        i.removeClass('checked');
+                    } else {
+                        i.addClass('checked');
+                    }
+                }
+            })
+        }
+
+    });
+</script>
+</body>
+</html>

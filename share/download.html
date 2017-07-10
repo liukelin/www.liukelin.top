@@ -1,0 +1,98 @@
+﻿<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+	<title>下载引导</title>
+	<meta name="keywords" content="团贷网,互联网金融,P2P网贷,P2P理财">
+	<meta name="description" content="团贷网是中国互联网金融领军企业，首家注册资本一亿元股份制网贷平台，解决中小微企业资金需求，为投资用户带来高收益。100%本息担保、100%人工审核、足额抵押物担保，确保投资理财用户资金安全。">
+	<script type="text/javascript" src="js/rem.js"></script>
+	<link rel="stylesheet" href="css/base.css" />
+	<link rel="stylesheet" href="css/download.css" />
+</head>
+<body>
+<section class="wrap pos-r scroll scroll-active">
+	<div class="download">
+		<span class="logo block bg-size"></span>
+		<span class="phone block bg-size"></span>
+		<span class="text1 block bg-size pos-a"></span>
+		<span class="text2 block bg-size pos-a"></span>
+		<span class="text3 block bg-size pos-a"></span>
+		<div class="dl-a">
+			<a href="" class="android">Android下载</a>
+			<a href="javascript:;" class="ios">iOS敬请期待</a>
+		</div>
+
+	</div>
+</section>
+
+<!--微信提示分享遮罩层-->
+<section class="weixin-share" id="weixin_share">
+	<img src="images/share.png?v=01">
+</section>
+<section class="maskLayer" id="mask_Layer"></section>
+
+<script type="text/javascript" src="js/fastclick-jquery-1.8.3.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+
+        FastClick.attach(document.body);
+
+
+        // 分享
+        function weixinShare() {
+            $("#weixin_share, #mask_Layer").show().bind("touchmove",function(e){
+                e.preventDefault();
+            });
+        }
+
+        $("#mask_Layer,#weixin_share img").on("click", function() {
+            $("#weixin_share, #mask_Layer").hide();
+        });
+
+
+        //判断微信
+        function isWeiXin() {
+            var ua = navigator.userAgent.toLowerCase();
+            if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) return unescape(r[2]);
+            return null;
+        }
+
+        $("#share_btn").click(function() {
+            if (GetQueryString('type') == 'mobileapp') {
+                if (Jsbridge.isNewVersion()) {
+                    if (Jsbridge.isCorrectVersion('4.5.0', 1)) {
+                        Jsbridge.ToAppActivity(1);
+                    } else {
+                       Jsbridge.toActivityAppInviteFriend();
+                    }
+                } else {
+                    alert('版本过低，请升级团贷网app');
+                }
+            } else {
+                if (isWeiXin()) {
+                    weixinShare();
+                } else {
+                    alert('打开app即可分享');
+                }
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>
