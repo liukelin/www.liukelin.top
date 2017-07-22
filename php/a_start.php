@@ -180,7 +180,7 @@ while(1) {
             foreach ($path as $pkey => $pvalue) {
 
                 if ($pvalue['x']==$avalue['x'] && $pvalue['y']==$avalue['y']) {
-                    $bgcolor = ' background-color: green; ';
+                    $bgcolor = ' background-color: red; ';
                 }
             }
 
