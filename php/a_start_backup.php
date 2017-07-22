@@ -1,5 +1,5 @@
 <?php
-
+// http://purperwind.blog.163.com/blog/static/2696070320151100452222/
 set_time_limit(5);
 
 // A*寻路

@@ -32,15 +32,15 @@ table.hovertable td {
 table.hovertable td:hover{background-color: red ;}
 </style>
 
-<script type="text/javascript" async="" src="http://www.liukelin.top/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
 </head>
 
 <body>
 
 <div>
     地图大小:
-    x:<input type="text" id="map_width" > - y:<input type="text" id="map_height" > 
-    <input type="button" name="" value="生成"  onClick="create_maps();">
+    x:<input type="text" id="map_width" value="12" > - y:<input type="text" id="map_height" value="12" > 
+    <input type="button" name="" value="生成" id="create_maps" >
 
 
 </div>
@@ -53,14 +53,8 @@ table.hovertable td:hover{background-color: red ;}
 
 </div>
 
-</body>
 
-  <script type="text/javascript">
-    (function() {
-        
-
-    })();
-
+<script type="text/javascript">
     function create_maps(){
         var map_width = $('#map_width').val();
         var map_height = $('#map_height').val();
@@ -68,17 +62,34 @@ table.hovertable td:hover{background-color: red ;}
             alert('地图大小值请输入数字');
             return false;
         }
+        alert(map_width,map_height);
+        $('#maps').html('');
         var maps = '';
-        for (var y=0; y<map_height; y++){
+        for (var x=0; x<map_width; x++){
             maps += '<tr>';
-            for (var x=0; x<map_height; x++){
+            for (var y=0; y<map_height; y++){
                 maps += '<td x='+x+'y='+y+'>('+x+','+y+')</td>';
             }
             maps += '</tr>';
         }
-        $('#maps').append(maps);
+        $('#maps').html(maps);
     }
 
+    // $(document).ready(function(){
+        // $("#create_maps").click(function(){
+        //    create_maps();
+        // });
+    // });
+    $(function(){ 
+    　　$("#create_maps").click(function(){
+           create_maps();
+        });
+    });
+
+    
+</script>
+
+</body>
 </html>
 
 

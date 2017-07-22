@@ -13,8 +13,8 @@ set_time_limit(5);
 
 
 // 地图大小
-$map_width = 13; 
-$map_height = 13;
+$map_width = 10;  // x
+$map_height = 13; // y
 
 // 是否允许障碍物边界斜向通过 
 $is_agree = 1;
