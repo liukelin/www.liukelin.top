@@ -8,7 +8,7 @@ set_time_limit(5);
 
 
 // 接受参数
-$hindrance = $_REQUEST[]; // 障碍物坐标集合
+// $hindrance = $_REQUEST[]; // 障碍物坐标集合
 
 
 
@@ -160,42 +160,8 @@ while(1) {
 }
 
 
-
-// print_r($area);
-// print_r($path);
-// 输出地图
-foreach ($area as $key => $value) {
-
-    echo '<div style="width:1600px; height:30px;">';
-    
-    foreach ($area[$key] as $akey => $avalue) {
-        
-        // 默认地图坐标颜色
-        $bgcolor = 'background-color: #cdd;';
-        
-        //障碍物颜色
-        if ($avalue['status']=='-1') {
-            $bgcolor = 'background-color: #cad;';
-        }
-
-        //轨迹高亮
-        foreach ($path as $pkey => $pvalue) {
-
-            if ($pvalue['x']==$avalue['x'] && $pvalue['y']==$avalue['y']) {
-                $bgcolor = ' background-color: green; ';
-            }
-        }
-
-        echo '<span style="width:80px; height:30px; '.$bgcolor .'line-height:30px; display: block; float:left; padding-right: 0px;">'.
-        ($avalue['x']).'-'.$avalue['y'].'-('.$avalue['status'].')  </span>';
-    }
-    echo '</div>';
-    echo '<br>';
-}
-// print_r($path);//$path里存放的就是寻路的结果路径
-
-
-
+// 直接输出
+draw_maps($area, $path);
 
 /** 
 * 回溯路径 
@@ -504,4 +470,39 @@ function isInPath($parent_arr, $x, $y) {
 } 
 
 
+// print_r($area);
+// print_r($path);
+// 输出地图
+function draw_maps($area, $path){
+    
+    foreach ($area as $key => $value) {
+
+        echo '<div style="width:1600px; height:30px;">';
+        
+        foreach ($area[$key] as $akey => $avalue) {
+            
+            // 默认地图坐标颜色
+            $bgcolor = 'background-color: #cdd;';
+            
+            //障碍物颜色
+            if ($avalue['status']=='-1') {
+                $bgcolor = 'background-color: #cad;';
+            }
+
+            //轨迹高亮
+            foreach ($path as $pkey => $pvalue) {
+
+                if ($pvalue['x']==$avalue['x'] && $pvalue['y']==$avalue['y']) {
+                    $bgcolor = ' background-color: green; ';
+                }
+            }
+
+            echo '<span style="width:80px; height:30px; '.$bgcolor .'line-height:30px; display: block; float:left; padding-right: 0px;">'.
+            ($avalue['x']).'-'.$avalue['y'].'-('.$avalue['status'].')  </span>';
+        }
+        echo '</div>';
+        echo '<br>';
+    }
+    // print_r($path);//$path里存放的就是寻路的结果路径
+}
 
