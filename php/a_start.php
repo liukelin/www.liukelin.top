@@ -161,7 +161,7 @@ while(1) {
 
 
 // 直接输出
-draw_maps($path);
+draw_maps($area, $path);
 
 
 /** 
