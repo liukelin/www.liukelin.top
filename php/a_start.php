@@ -13,7 +13,7 @@ set_time_limit(5);
 
 
 // 地图大小
-$map_width = 10;  // x
+$map_width = 13;  // x
 $map_height = 13; // y
 
 // 是否允许障碍物边界斜向通过 
@@ -161,35 +161,7 @@ while(1) {
 
 
 // 直接输出
-// draw_maps($path);
- foreach ($area as $key => $value) {
-
-        echo '<div style="width:1600px; height:30px;">';
-        
-        foreach ($area[$key] as $akey => $avalue) {
-            
-            // 默认地图坐标颜色
-            $bgcolor = 'background-color: #cdd;';
-            
-            //障碍物颜色
-            if ($avalue['status']=='-1') {
-                $bgcolor = 'background-color: #cad;';
-            }
-
-            //轨迹高亮
-            foreach ($path as $pkey => $pvalue) {
-
-                if ($pvalue['x']==$avalue['x'] && $pvalue['y']==$avalue['y']) {
-                    $bgcolor = ' background-color: red; ';
-                }
-            }
-
-            echo '<span style="width:80px; height:30px; '.$bgcolor .'line-height:30px; display: block; float:left; padding-right: 0px;">'.
-            ($avalue['x']).'-'.$avalue['y'].'-('.$avalue['status'].')  </span>';
-        }
-        echo '</div>';
-        echo '<br>';
-    }
+draw_maps($path);
 
 
 /** 
