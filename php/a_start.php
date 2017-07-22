@@ -8,13 +8,21 @@ set_time_limit(5);
 
 
 // 接受参数
-// $hindrance = $_REQUEST[]; // 障碍物坐标集合
+$map_width = (int)$_REQUEST['map_width']; 
+$map_height = (int)$_REQUEST['map_height']; 
+$location_hindrance = $_REQUEST['location_hindrance']; // 障碍物坐标  |x-y|x-y
+$location_begin = $_REQUEST['location_begin']; // 起点物坐标 x-y
+$location_end = $_REQUEST['location_end']; // 终点坐标  x-y
+if (!$location_hindrance || !$location_begin || !$location_end) {
+    exit();
+}
 
-
+$location_begin = explode('-', $location_begin);
+$location_end = explode('-', $location_end);
 
 // 地图大小
-$map_width = 13;  // x
-$map_height = 13; // y
+$map_width = $map_width;  // x
+$map_height = $map_height; // y
 
 // 是否允许障碍物边界斜向通过 
 $is_agree = 0;
@@ -24,46 +32,21 @@ $cost_1 = 10; //左右消耗值
 $cost_2 = 14; //对角消耗值
 
 // 设置起始和结束坐标 
-$begin_x = 12; 
-$begin_y = 1; 
-$end_x = 0; 
-$end_y = 0;
+$begin_x = $location_begin[0]; 
+$begin_y = $location_begin[1]; 
+$end_x = $location_end[0]; 
+$end_y = $location_end[1];
 
 // 设置障碍物坐标 
 $hindrance = array(); 
-$hindrance[] = array(1,2); 
-$hindrance[] = array(1,3); 
-$hindrance[] = array(1,1); 
-// $hindrance[] = array(1,4); 
+// $hindrance[] = array(1,2); 
+// $hindrance[] = array(1,3); 
+// $hindrance[] = array(1,1); 
+$location_hindrance = array_filter(explode('|', $location_hindrance));
+foreach ($location_hindrance as $key => $val) {
+    $location_hindrance[$key] = explode('-', $val);
+}
 
-$hindrance[] = array(1,0); 
-$hindrance[] = array(0,6); 
-$hindrance[] = array(4,1); 
-$hindrance[] = array(5,1); 
-$hindrance[] = array(2,4);
-
-$hindrance[] = array(3,1); 
-$hindrance[] = array(3,4);
-$hindrance[] = array(3,2); 
-$hindrance[] = array(3,5); 
-// $hindrance[] = array(3,6); 
-$hindrance[] = array(3,7); 
-
-$hindrance[] = array(4,4);
-$hindrance[] = array(5,4); 
-$hindrance[] = array(6,4); 
-$hindrance[] = array(6,1); 
-$hindrance[] = array(6,2); 
-$hindrance[] = array(6,3); 
-$hindrance[] = array(5,8); 
-$hindrance[] = array(7,4); 
-$hindrance[] = array(7,8); 
-$hindrance[] = array(6,5); 
-$hindrance[] = array(6,6); 
-$hindrance[] = array(1,6); 
-$hindrance[] = array(8,6);
-$hindrance[] = array(10,3);
-$hindrance[] = array(10,5);
 
 // 生成地图
 $area = createMap($map_width, $map_height, $begin_x, $begin_y, $end_x, $end_y, $hindrance);
@@ -161,13 +144,24 @@ while(1) {
 
 
 // 直接输出
-draw_maps($area, $path);
+// draw_maps($area, $path);
 
+//返回json
+exit(json_decode(array('path'=>$path)));
 
 /**
  * 回溯路径 
  * @param  [type] $close_arr 关闭坐标集合
  * @return [type]            路径坐标集合
+ * Array
+    (
+        [0] => Array
+            (
+                [x] => 0
+                [y] => 1
+            )
+        ...
+    )
  */
 function getPath($close_arr) { 
     
@@ -205,12 +199,12 @@ function getPath($close_arr) {
  * @param  [type] $hindrance 障碍物坐标集合
  * @return [type] 地图坐标 X Y status 0 可通过 -1 障碍        
  * array(
- *     "0"=> array(
- *         "0" => array(x" => 0 , "y" => 0 , "status" => 0),
+ *     [0]=> array(
+ *         [0] => array("x" => 0 , "y" => 0 , "status" => 0),
  *         ... 
  *     ),
- *     "1" => array(
- *         "0" => array(x" => 1 , "y" => 0 , "status" => -1),
+ *     [1] => array(
+ *         [0] => array("x" => 1 , "y" => 0 , "status" => -1),
  *         ...
  *     ),
  *     ...

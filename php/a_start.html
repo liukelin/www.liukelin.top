@@ -161,17 +161,21 @@ table.hovertable td:hover{
             $.ajax({
                 type: 'POST',
                 data:{
+                    map_width:$('#map_width').val(),
+                    map_height:$('#map_height').val(),
                     location_hindrance:$('#location_hindrance').val(),
                     location_begin:$('#location_begin').val(),
-                    location_begin:$('#location_begin').val()
+                    location_end:$('#location_end').val()
                 },
                 url: 'a_start.php',
                 dataType: 'json',
                 success: function(data){
-                    if (data.path) {
-                        for (var i = 0; i < Things.length; i++) {
-                            Things[i]
-                        }
+                    if (data.path && data.path.length>0) {
+                        $.each(data.path,function(key,value){
+                            $('#location_'+value.x+'-'+value.y).attr('style','background-color: green;');
+                        });
+                    }else{
+                        alert('获取路径失败');
                     }
                 }
             });
