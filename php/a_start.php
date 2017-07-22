@@ -149,7 +149,7 @@ while(1) {
 // draw_maps($area, $path);
 
 //返回json
-exit(json_decode(array('c'=>0,'path'=>$path)));
+exit(json_encode(array('c'=>0,'path'=>$path)));
 
 /**
  * 回溯路径 
