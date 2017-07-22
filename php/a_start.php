@@ -161,7 +161,7 @@ while(1) {
 
 
 // 直接输出
-draw_maps($area, $path);
+draw_maps($path);
 
 /** 
 * 回溯路径 
@@ -473,8 +473,8 @@ function isInPath($parent_arr, $x, $y) {
 // print_r($area);
 // print_r($path);
 // 输出地图
-function draw_maps($area, $path){
-    
+function draw_maps($path){
+    global $area; 
     foreach ($area as $key => $value) {
 
         echo '<div style="width:1600px; height:30px;">';
