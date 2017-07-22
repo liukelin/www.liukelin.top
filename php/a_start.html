@@ -170,12 +170,16 @@ table.hovertable td:hover{
                 url: 'a_start.php',
                 dataType: 'json',
                 success: function(data){
-                    if (data.path && data.path.length>0) {
-                        $.each(data.path,function(key,value){
-                            $('#location_'+value.x+'-'+value.y).attr('style','background-color: green;');
-                        });
+                    if (data.c>=0) {
+                        if (data.path && data.path.length>0) {
+                            $.each(data.path,function(key,value){
+                                $('#location_'+value.x+'-'+value.y).attr('style','background-color: green;');
+                            });
+                        }else{
+                            alert('获取路径失败');
+                        }
                     }else{
-                        alert('获取路径失败');
+                        alert(data.msg);
                     }
                 }
             });

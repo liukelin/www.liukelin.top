@@ -14,7 +14,7 @@ $location_hindrance = $_REQUEST['location_hindrance']; // 障碍物坐标  |x-y|
 $location_begin = $_REQUEST['location_begin']; // 起点物坐标 x-y
 $location_end = $_REQUEST['location_end']; // 终点坐标  x-y
 if (!$location_hindrance || !$location_begin || !$location_end) {
-    exit();
+    exit(json_encode(array('c'=>-1,'msg'=>'参数错误')));
 }
 
 $location_begin = explode('-', $location_begin);
@@ -147,7 +147,7 @@ while(1) {
 // draw_maps($area, $path);
 
 //返回json
-exit(json_decode(array('path'=>$path)));
+exit(json_decode(array('c'=>0,'path'=>$path)));
 
 /**
  * 回溯路径 
