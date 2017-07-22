@@ -47,11 +47,11 @@ table.hovertable td:hover{
     表格大小:
     x:<input type="text" id="map_width" value="12" > - y:<input type="text" id="map_height" value="12" > 
     <input type="button" name="" value="创建" id="create_maps" onClick="create_maps();" >
-
-    <input type="button" name="" value="设置障碍物" onClick="set_action(1);">
-    <input type="button" name="" value="设置起点" onClick="set_action(2);">
-    <input type="button" name="" value="设置终点" onClick="set_action(3);">
-    <input type="button" name="" id="gen_path" value="生成路径" >
+    &nbsp;--&nbsp;
+    <input type="button" name="" value="设置障碍物" onClick="set_action(1);" style="border:2px solid black;">
+    <input type="button" name="" value="设置起点" onClick="set_action(2);" style="border:2px solid yellow;">
+    <input type="button" name="" value="设置终点" onClick="set_action(3);" style="border:2px solid blue;">
+    <input type="button" name="" id="gen_path" value="生成路径" style="border:2px solid green;">
 
     <!-- <input type="button" name="" id="" value="测试" onClick="alert($('#location_1-0').attr('x'))"> -->
 </div>
@@ -75,10 +75,11 @@ table.hovertable td:hover{
     function create_maps(){
         var map_width = $('#map_width').val();
         var map_height = $('#map_height').val();
-        if (isNaN(map_width) || isNaN(map_height)) {
-            alert('地图大小值请输入数字');
+        if (isNaN(map_width) || isNaN(map_height) || parseInt(map_width)<=0 || parseInt(map_height)<=0) {
+            alert('地图大小值请输入大于0数字');
             return false;
         }
+
         // alert(map_width,map_height);
         // $('#maps').html('');
         $('#action').val('1');
@@ -172,8 +173,13 @@ table.hovertable td:hover{
                 success: function(data){
                     if (data.c>=0) {
                         if (data.path && data.path.length>0) {
+                            // 初始化旧路径
+                            $("td[is_path=1]").attr('style','');
+
                             $.each(data.path,function(key,value){
+                                //标记路径
                                 $('#location_'+value.x+'-'+value.y).attr('style','background-color: green;');
+                                $('#location_'+value.x+'-'+value.y).attr('is_path','1');
                             });
                         }else{
                             alert('获取路径失败');
