@@ -1,5 +1,7 @@
 <?php
 set_time_limit(5);
+ini_set("display_errors", "On");
+error_reporting(E_ALL | E_STRICT);
 /**
  * A*寻路
  * liukelin
