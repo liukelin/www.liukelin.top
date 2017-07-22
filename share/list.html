@@ -18,10 +18,10 @@
 <section class="wrap pos-r scroll scroll-active main-wrap">
 
 	<div class="input-box pos-r" id="setPassword">
-		<input type="button" id="txtPassword">
+		<input type="text" id="txtPassword">
 		<p id="likePlaceholder">输入搜索内容</p>
-		<div class="btnsee webkit-box box-center" id="btnSee">
-			<b class="block eye-close bg-size"></b>
+		<div class="btnsee webkit-box box-center " id="btnSee">
+			<b class="block eye-seach bg-size"></b>
 		</div>
 	</div>
 
@@ -96,15 +96,6 @@
             $("#btnSee").click(function () {
                 var eye = $(this).find('b');
 
-                if ($txtPassword.attr('type') == 'password') {
-                    eye.removeClass('eye-close').addClass('eye-open');
-
-                    $("#txtPassword")[0].type="text";
-                } else {
-                    eye.removeClass('eye-open').addClass('eye-close');
-
-                    $("#txtPassword")[0].type="password";
-                }
             });
 
         }
