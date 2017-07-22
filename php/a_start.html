@@ -111,6 +111,7 @@ table.hovertable td:hover{
        y = $(t).attr('y');
        // alert($(t).attr('x'));
        
+       $(t).attr('is_path',''); // 清除路径标识
        action = parseInt($('#action').val());
        if (action==1) { // 设置障碍物
             $('#location_hindrance').val($('#location_hindrance').val() +'|'+x+'-'+y);
