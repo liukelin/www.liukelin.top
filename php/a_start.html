@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="theme-next muse use-motion"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<style type="text/css">
+/*table.hovertable {
+    font-family: verdana,arial,sans-serif;
+    font-size:11px;
+    color:#333333;
+    border-width: 1px;
+    border-color: #999999;
+    border-collapse: collapse;
+}
+table.hovertable th {
+    background-color:#c3dde0;
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}*/
+/*table.hovertable tr {
+    background-color:#d4e3e5;
+}*/
+table.hovertable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #a9c6c9;
+}
+table.hovertable td:hover{background-color: red ;}
+</style>
+
+<script type="text/javascript" async="" src="http://www.liukelin.top/js/jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+
+<div>
+    地图大小:
+    x:<input type="text" id="map_width" > - y:<input type="text" id="map_height" > 
+    <input type="button" name="" value="生成"  onClick="create_maps();">
+
+
+</div>
+
+<div>
+<!-- Table goes in the document BODY -->
+<table class="hovertable" id="maps">
+    
+</table>
+
+</div>
+
+</body>
+
+  <script type="text/javascript">
+    (function() {
+        
+
+    })();
+
+    function create_maps(){
+        var map_width = $('#map_width').val();
+        var map_height = $('#map_height').val();
+        if (isNaN(map_width) || isNaN(map_height)) {
+            alert('地图大小值请输入数字');
+            return false;
+        }
+        var maps = '';
+        for (var y=0; y<map_height; y++){
+            maps += '<tr>';
+            for (var x=0; x<map_height; x++){
+                maps += '<td x='+x+'y='+y+'>('+x+','+y+')</td>';
+            }
+            maps += '</tr>';
+        }
+        $('#maps').append(maps);
+    }
+
+</html>
+
+
+
+
+
+
+
+
+
+
+

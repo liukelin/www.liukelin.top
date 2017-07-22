@@ -12,12 +12,12 @@ set_time_limit(5);
 
 
 
-
+// 地图大小
 $map_width = 13; 
 $map_height = 13;
 
 // 是否允许障碍物边界斜向通过 
-$is_agree = 0;
+$is_agree = 1;
 
 // 消耗 
 $cost_1 = 10; //左右消耗值 
@@ -27,7 +27,7 @@ $cost_2 = 14; //对角消耗值
 $begin_x = 12; 
 $begin_y = 1; 
 $end_x = 0; 
-$end_y = 11;
+$end_y = 0;
 
 // 设置障碍物坐标 
 $hindrance = array(); 
