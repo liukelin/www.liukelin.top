@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html class="theme-next muse use-motion"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<html class="theme-next muse use-motion">
+<head>
 
-<!-- CSS goes in the document HEAD or added to your external stylesheet -->
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>liukelin - A-start</title>
 <style type="text/css">
 /*table.hovertable {
     font-family: verdana,arial,sans-serif;
@@ -29,7 +31,11 @@ table.hovertable td {
     border-style: solid;
     border-color: #a9c6c9;
 }
-table.hovertable td:hover{background-color: red ;}
+
+table.hovertable td:hover{
+    /*background-color: red ;*/
+    border:1px solid red;
+}
 </style>
 
 <script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
@@ -38,11 +44,16 @@ table.hovertable td:hover{background-color: red ;}
 <body>
 
 <div>
-    地图大小:
+    表格大小:
     x:<input type="text" id="map_width" value="12" > - y:<input type="text" id="map_height" value="12" > 
-    <input type="button" name="" value="生成" id="create_maps" >
+    <input type="button" name="" value="创建" id="create_maps" onClick="create_maps();" >
 
+    <input type="button" name="" value="设置障碍物" onClick="set_action(1);">
+    <input type="button" name="" value="设置起点" onClick="set_action(2);">
+    <input type="button" name="" value="设置终点" onClick="set_action(3);">
+    <input type="button" name="" id="gen_path" value="生成路径" >
 
+    <!-- <input type="button" name="" id="" value="测试" onClick="alert($('#location_1-0').attr('x'))"> -->
 </div>
 
 <div>
@@ -53,8 +64,14 @@ table.hovertable td:hover{background-color: red ;}
 
 </div>
 
+<input type="hidden" name="" id="action" value="1"><!-- 当前操作 1设置障碍 2设置起点 3设置终点 -->
+<input type="hidden" name="" id="location_hindrance" ><!-- 障碍物 -->
+<input type="hidden" name="" id="location_begin"><!-- 起点 -->
+<input type="hidden" name="" id="location_end" ><!-- 终点 -->
 
 <script type="text/javascript">
+
+    // 生成地图
     function create_maps(){
         var map_width = $('#map_width').val();
         var map_height = $('#map_height').val();
@@ -62,28 +79,104 @@ table.hovertable td:hover{background-color: red ;}
             alert('地图大小值请输入数字');
             return false;
         }
-        alert(map_width,map_height);
-        $('#maps').html('');
+        // alert(map_width,map_height);
+        // $('#maps').html('');
+        $('#action').val('1');
+        $('#location_hindrance').val('');
+        $('#location_begin').val('');
+        $('#location_end').val('');
         var maps = '';
         for (var x=0; x<map_width; x++){
             maps += '<tr>';
             for (var y=0; y<map_height; y++){
-                maps += '<td x='+x+'y='+y+'>('+x+','+y+')</td>';
+                maps += '<td class="location_td" onClick="location_td_click(this)" x="'+x+'" y="'+y+'" id="location_'+x+'-'+y+'" ><span>('+x+','+y+')</span></td>';
             }
             maps += '</tr>';
         }
         $('#maps').html(maps);
     }
 
-    // $(document).ready(function(){
-        // $("#create_maps").click(function(){
-        //    create_maps();
-        // });
-    // });
-    $(function(){ 
+    
+    // 记录设置动作
+    function set_action(action){
+        // alert(action);
+        $('#action').val(action);
+    }
+
+    // 坐标设置 （单击设置障碍物、起点、终点）
+    function location_td_click(t){
+    
+       x = $(t).attr('x');
+       y = $(t).attr('y');
+       // alert($(t).attr('x'));
+       
+       action = parseInt($('#action').val());
+       if (action==1) { // 设置障碍物
+            $('#location_hindrance').val($('#location_hindrance').val() +'|'+x+'-'+y);
+            $(t).attr('style',"background-color: black;");
+
+       }else if(action==2){ // 设置起点
+            // 将旧设置清空
+            $('#location_'+ $('#location_begin').val()).attr('style','');
+
+            $('#location_begin').val(x+'-'+y);
+            $(t).attr('style', "background-color: yellow;");
+
+       }else if(action==3){ // 设置终点
+            // 将旧设置清空
+            $('#location_'+ $('#location_end').val()).attr('style','');
+
+            $('#location_end').val(x+'-'+y);
+            $(t).attr('style','background-color: blue;');
+
+       }
+
+    }
+
+    /**
+    // 记录障碍物设置
+    function location_hindrance(){
+        $('#location_hindrance');
+    }
+
+    // 记录终点起点设置
+    function location_begin(location){
+        $('#location_begin').val(location);
+    }
+
+    // 记录终点起点设置
+    function location_end(location){
+        $('#location_end').val(location);
+    }
+    **/
+
+    $(function(){
+        create_maps();
+
     　　$("#create_maps").click(function(){
            create_maps();
         });
+
+        $('#gen_path').click(function(){
+            $.ajax({
+                type: 'POST',
+                data:{
+                    location_hindrance:$('#location_hindrance').val(),
+                    location_begin:$('#location_begin').val(),
+                    location_begin:$('#location_begin').val()
+                },
+                url: 'a_start.php',
+                dataType: 'json',
+                success: function(data){
+                    if (data.path) {
+                        for (var i = 0; i < Things.length; i++) {
+                            Things[i]
+                        }
+                    }
+                }
+            });
+        });
+
     });
 
     

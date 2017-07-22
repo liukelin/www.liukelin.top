@@ -69,8 +69,8 @@ $hindrance[] = array(10,5);
 $area = createMap($map_width, $map_height, $begin_x, $begin_y, $end_x, $end_y, $hindrance);
 
 // 初始化 
-$open_arr = array(); 
-$close_arr = array(); // 关闭坐标
+$open_arr = array(); // 开启坐标集合
+$close_arr = array(); // 关闭坐标集合
 $path = array(); // 路径坐标集合
 
 // 把起始格添加到开启列表 
@@ -164,11 +164,11 @@ while(1) {
 draw_maps($area, $path);
 
 
-/** 
-* 回溯路径 
-* 
-* @param (类型) (参数名) (描述) 
-*/ 
+/**
+ * 回溯路径 
+ * @param  [type] $close_arr 关闭坐标集合
+ * @return [type]            路径坐标集合
+ */
 function getPath($close_arr) { 
     
     global $begin_x, $begin_y; 

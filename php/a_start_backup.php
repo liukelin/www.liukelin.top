@@ -178,7 +178,7 @@ foreach ($area as $key => $value)
     echo '</div>';
     echo '<br>';
 }
-// print_r($path);//$path里存放的就是寻路的结果路径
+print_r($path);//$path里存放的就是寻路的结果路径
 
 /** 
 * 回溯路径 
