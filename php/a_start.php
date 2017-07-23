@@ -3,6 +3,7 @@ set_time_limit(5);
 ini_set("display_errors", "On");
 error_reporting(E_ALL | E_STRICT);
 /**
+ * 基于a-start的最短距离计算
  * A*寻路
  * liukelin
  * 2017.7.23
