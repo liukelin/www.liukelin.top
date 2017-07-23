@@ -62,9 +62,9 @@ $path = array(); // 路径坐标集合
 // 把起始格添加到开启列表 
 $open_arr[0]['x'] = $begin_x; 
 $open_arr[0]['y'] = $begin_y; 
-$open_arr[0]['G'] = 0; 
-$open_arr[0]['H'] = getH($begin_x,$begin_y,$end_x,$end_y); 
-$open_arr[0]['F'] = $open_arr[0]['H']; 
+$open_arr[0]['G'] = 0;      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
+$open_arr[0]['H'] = getH($begin_x,$begin_y,$end_x,$end_y);  // H = 从网格上那个方格移动到终点B的预估移动耗费。
+$open_arr[0]['F'] = $open_arr[0]['H'];  // F = G + H
 $open_arr[0]['p_node'] = array($begin_x, $begin_y);
 
 // 循环 
