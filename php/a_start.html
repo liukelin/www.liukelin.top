@@ -51,6 +51,7 @@ table.hovertable td:hover{
     <input type="button" name="" value="设置障碍物" onClick="set_action(1);" style="border:2px solid black;">
     <input type="button" name="" value="设置起点" onClick="set_action(2);" style="border:2px solid yellow;">
     <input type="button" name="" value="设置终点" onClick="set_action(3);" style="border:2px solid blue;">
+    <label><input name="is_agree" type="checkbox" value="1" />允许斜向通过</label>
     <input type="button" name="" id="gen_path" value="生成路径" style="border:2px solid green;">
 
     <!-- <input type="button" name="" id="" value="测试" onClick="alert($('#location_1-0').attr('x'))"> -->
@@ -167,7 +168,8 @@ table.hovertable td:hover{
                     map_height:$('#map_height').val(),
                     location_hindrance:$('#location_hindrance').val(),
                     location_begin:$('#location_begin').val(),
-                    location_end:$('#location_end').val()
+                    location_end:$('#location_end').val(),
+                    is_agree:$('#is_agree').val()
                 },
                 url: 'a_start.php',
                 dataType: 'json',
