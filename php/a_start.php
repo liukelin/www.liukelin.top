@@ -9,7 +9,6 @@ error_reporting(E_ALL | E_STRICT);
  * 2017.7.23 
  */
 
-
 // 接受参数
 $map_width = (int)$_REQUEST['map_width']; 
 $map_height = (int)$_REQUEST['map_height']; 
@@ -19,14 +18,20 @@ $location_end = $_REQUEST['location_end']; // 终点坐标  x-y
 $is_agree = $_REQUEST['is_agree']==1?1:0;// 是否允许斜向通过
 
 if (!$location_begin) {
-    exit(json_encode(array('c'=>-1,'msg'=>'请选择起点')));
+    exit(json_encode(constants(-1001));
 }
 if (!$location_end) {
-    exit(json_encode(array('c'=>-1,'msg'=>'请选择终点')));
+    exit(json_encode(constants(-1002));
 }
 
 $location_begin = explode('-', $location_begin);
 $location_end = explode('-', $location_end);
+if (count($location_begin)<2) {
+    exit(json_encode(constants(-1001));
+}
+if (count($location_end)<2) {
+    exit(json_encode(constants(-1002));
+}
 
 // 地图大小
 $map_width = $map_width;  // x
@@ -66,13 +71,13 @@ $path = array(); // 路径坐标集合
 // 把起始格添加到开启列表 
 $one_H = getH($begin_x,$begin_y,$end_x,$end_y);  // H = 从网格上那个方格移动到终点B的预估移动耗费。
 $open_arr[] = array(
-        'x' => $begin_x,
-        'y' => $begin_y,
-        'G' => 0,      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
-        'H' => $one_H,
-        'F' => $one_H,  // F = G + H
-        'p_node' => array($begin_x, $begin_y),
-    );
+            'x' => $begin_x,
+            'y' => $begin_y,
+            'G' => 0,      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
+            'H' => $one_H,
+            'F' => $one_H,  // F = G + H
+            'p_node' => array($begin_x, $begin_y),
+        );
 
 
 // 循环 
@@ -113,15 +118,17 @@ while(1) {
         if(!$rs_open) { 
 
             //不在opne列表
-            $arr[$i] = array(); 
-            $arr[$i]['x'] = $pos_arr[0]; 
-            $arr[$i]['y'] = $pos_arr[1]; 
-            $arr[$i]['G'] = $total_g; 
-            $arr[$i]['H'] = getH($pos_arr[0], $pos_arr[1], $end_x, $end_y); 
-            $arr[$i]['F'] = $arr[$i]['G'] + $arr[$i]['H']; 
-            $arr[$i]['p_node']['x'] = $cur_node['x']; 
-            $arr[$i]['p_node']['y'] = $cur_node['y']; 
+            $val_H = getH($pos_arr[0], $pos_arr[1], $end_x, $end_y); 
+            $arr[$i] = array(
+                    'x' => $pos_arr[0]; 
+                    'y' => $pos_arr[1]; 
+                    'G' => $total_g; 
+                    'H' => $val_H; 
+                    'F' => $total_g + $val_H; 
+                    'p_node' => array('x'=>$cur_node['x'], 'y'=>$cur_node['y'])
+                );
             $open_arr[] = $arr[$i]; 
+
         
         } else { 
             //在opne列表 G值重估
@@ -158,7 +165,22 @@ while(1) {
 // draw_maps($area, $path);
 
 //返回json
-exit(json_encode(array('c'=>0,'path'=>$path)));
+$ret = constants(0)
+$ret['path'] = $path;
+exit(json_encode($ret));
+
+
+function constants($code){
+    $CONSTANTS = array(
+                0=>'success',
+                -1001=>'请选择起点',
+                -1002=>'请选择终点'
+            );
+    return array(
+                'c'=>$code,
+                'msg'=>isset($CONSTANTS[$code])?$CONSTANTS[$code]:$CONSTANTS[0],
+            );
+}
 
 /**
  * 回溯路径 
