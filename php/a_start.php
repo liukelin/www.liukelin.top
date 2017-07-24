@@ -9,6 +9,14 @@ error_reporting(E_ALL | E_STRICT);
  * 2017.7.23 
  */
 
+$_REQUEST = array(
+        'map_width'=>13,
+        'map_height'=>13,
+        'location_hindrance'=>'|10-5',
+        'location_begin'=>'0-0',
+        'location_end'=>'10-10'
+    );
+
 // 接受参数
 $map_width = (int)$_REQUEST['map_width']; 
 $map_height = (int)$_REQUEST['map_height']; 
@@ -194,7 +202,7 @@ class aStart{
      * @param  array   $cost      [消耗值]
      * @return [type]             [路径集合]
      */
-    function create_path($is_agree = 1, $cost=array(10, 14)){
+    public function create_path($is_agree = 1, $cost=array(10, 14)){
 
         $maps = $this->maps;
         $begin = $this->begin;
@@ -223,16 +231,12 @@ class aStart{
         $path = array(); // 路径坐标集合
 
         // 把起始格添加到开启列表 
-        $one_H = $this->getH($begin_x,$begin_y,$end_x,$end_y);  // H = 从网格上那个方格移动到终点B的预估移动耗费。
-        $open_arr[] = array(
-                    'x' => $begin_x,
-                    'y' => $begin_y,
-                    'G' => 0,      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
-                    'H' => $one_H,
-                    'F' => $one_H,  // F = G + H
-                    'p_node' => array($begin_x, $begin_y),
-                );
-
+        $open_arr[0]['x'] = $begin_x; 
+        $open_arr[0]['y'] = $begin_y; 
+        $open_arr[0]['G'] = 0; 
+        $open_arr[0]['H'] = $this->getH($begin_x,$begin_y,$end_x,$end_y); 
+        $open_arr[0]['F'] = $open_arr[0]['H']; 
+        $open_arr[0]['p_node'] = array('x'=>$begin_x, 'y'=>$begin_y);
 
         // 循环 
         while(1) {
@@ -246,6 +250,8 @@ class aStart{
             // 将当前点加入到关闭列表 
             $close_arr[] = $cur_node;
             
+            // print_r($cur_node);
+
             //取周边节点
             $round_list = $this->getRoundNode($cur_node['x'], $cur_node['y'], $is_agree); 
             $round_num = count($round_list);
@@ -257,7 +263,7 @@ class aStart{
 
                 // 跳过已在关闭列表中的格子，障碍格子和 夹角转角格子 
                 if(  $this->isOutMap($pos_arr[0], $pos_arr[1], $map_width, $map_height) 
-                    ||  $this->isNodeClose($pos_arr[0], $pos_arr[1]) 
+                    ||  $this->isNodeClose($close_arr, $pos_arr[0], $pos_arr[1]) 
                     ||  $this->isHindrance($pos_arr[0], $pos_arr[1]) 
                     ||  $this->isCorner($pos_arr[0], $pos_arr[1], $cur_node['x'], $cur_node['y'])
                 ){ 
@@ -268,19 +274,18 @@ class aStart{
                 $total_g = $new_g + $cur_node['G'];
 
                 // 如果节点已在开启列表中，重新计算一下G值 ，否则返回false
-                $rs_open =  $this->isNodeOpen($pos_arr[0], $pos_arr[1]); 
+                $rs_open =  $this->isNodeOpen($open_arr, $pos_arr[0], $pos_arr[1]); 
                 if(!$rs_open) { 
 
                     //不在opne列表
-                    $val_H =  $this->getH($pos_arr[0], $pos_arr[1], $end_x, $end_y); 
-                    $arr[$i] = array(
-                            'x' => $pos_arr[0],
-                            'y' => $pos_arr[1], 
-                            'G' => $total_g,
-                            'H' => $val_H,
-                            'F' => $total_g + $val_H, 
-                            'p_node' => array('x'=>$cur_node['x'], 'y'=>$cur_node['y'])
-                        );
+                    $arr[$i] = array(); 
+                    $arr[$i]['x'] = $pos_arr[0]; 
+                    $arr[$i]['y'] = $pos_arr[1]; 
+                    $arr[$i]['G'] = $total_g; 
+                    $arr[$i]['H'] = $this->getH($pos_arr[0], $pos_arr[1], $end_x, $end_y); 
+                    $arr[$i]['F'] = $arr[$i]['G'] + $arr[$i]['H']; 
+                    $arr[$i]['p_node']['x'] = $cur_node['x']; 
+                    $arr[$i]['p_node']['y'] = $cur_node['y']; 
                     $open_arr[] = $arr[$i]; 
 
                 
@@ -300,9 +305,11 @@ class aStart{
                 } 
             }
 
+            
             // 到达终点
             if($cur_node['x'] == $end_x && $cur_node['y'] == $end_y) {
 
+                
                 $path =  $this->getPath($close_arr); 
                 if(!empty($path)) { 
 
@@ -337,6 +344,7 @@ class aStart{
 
         $path = array(); 
         $p = $close_arr[count($close_arr)-1]['p_node']; 
+
         $path[] = $p; 
         while(1) { 
 
@@ -516,7 +524,7 @@ class aStart{
     * @param (类型) (open_arr) (开启坐标集合) 
     */ 
     function getLowestFNode($open_arr) { 
-        usort($open_arr, "sortOpenList"); 
+        usort($open_arr, array("aStart", "sortOpenList")); 
         $node = array(); 
         $i = 0; 
         foreach($open_arr as $key=>$val) { 
@@ -530,7 +538,6 @@ class aStart{
             } 
             $i++; 
         }
-
         return $node; 
     }
 
@@ -540,8 +547,8 @@ class aStart{
     * @param (类型) (node_x) (x坐标) 
     * @param (类型) (node_y) (y坐标) 
     */ 
-    function isNodeClose($node_x, $node_y) { 
-        global $close_arr; 
+    function isNodeClose($close_arr, $node_x, $node_y) { 
+        // global $close_arr; 
         foreach($close_arr as $key=>$val) {
             if(isset($val['x']) && $val['x'] == $node_x && isset($val['y']) && $val['y'] == $node_y) { 
                 return true; 
@@ -556,8 +563,8 @@ class aStart{
     * @param (类型) (node_x) (x坐标) 
     * @param (类型) (node_y) (y坐标) 
     */ 
-    function isNodeOpen($node_x, $node_y) { 
-        global $open_arr; 
+    function isNodeOpen($open_arr, $node_x, $node_y) { 
+        // global $open_arr; 
         foreach($open_arr as $key=>$val) {
 
             if(isset($val['x']) && $val['x'] == $node_x && isset($val['y']) && $val['y'] == $node_y) {
