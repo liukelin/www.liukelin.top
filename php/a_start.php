@@ -9,6 +9,15 @@ error_reporting(E_ALL | E_STRICT);
  * 2017.7.23 
  */
 
+$_REQUEST = array(
+        'map_width'=>13,
+        'map_height'=>13,
+        'location_hindrance'=>'|10-5',
+        'location_begin'=>'2-9',
+        'location_end'=>'10-10',
+        'is_agree'=>1
+    );
+
 // 接受参数
 $map_width = (int)$_REQUEST['map_width']; 
 $map_height = (int)$_REQUEST['map_height']; 
@@ -61,7 +70,7 @@ $C = new createMap($map_width, $map_height, $hindrance);
 $maps = $C->create_map();
 
 // 生成路径
-$P = new aStart($maps, $begin = $location_end, $end = $location_end);
+$P = new aStart($maps, $begin = $location_begin, $end = $location_end);
 $path = $P->create_path($is_agree = $is_agree);
 
 //返回json
@@ -180,6 +189,9 @@ class aStart{
     public $cost = array(10, 14); // 正向、斜向 消耗值
     public $map_width; // 地图宽
     public $map_height; // 地图高
+
+    public $open_arr;
+    public $close_arr; 
      
     public function __construct($maps, $begin, $end) {
         $this->maps = $maps; 
@@ -241,8 +253,6 @@ class aStart{
 
             // 将当前点加入到关闭列表 
             $close_arr[] = $cur_node;
-            
-            // print_r($cur_node);
 
             //取周边节点
             $round_list = $this->getRoundNode($cur_node['x'], $cur_node['y'], $is_agree); 
@@ -300,19 +310,23 @@ class aStart{
             
             // 到达终点
             if($cur_node['x'] == $end_x && $cur_node['y'] == $end_y) {
-
                 
                 $path =  $this->getPath($close_arr); 
                 if(!empty($path)) { 
-
+                    // echo '退出';
                     break; 
                 } 
             }
 
             if(empty($open_arr)) { 
+                
                 break; 
             } 
         }
+
+        // print_r($close_arr);
+        return $path;
+
     }
 
     /**
@@ -330,7 +344,6 @@ class aStart{
         )
      */
     function getPath($close_arr) { 
-
         $begin_x = ($this->begin)[0];
         $begin_y = ($this->begin)[1];
 
