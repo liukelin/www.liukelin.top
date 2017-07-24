@@ -169,7 +169,7 @@ table.hovertable td:hover{
                     location_hindrance:$('#location_hindrance').val(),
                     location_begin:$('#location_begin').val(),
                     location_end:$('#location_end').val(),
-                    is_agree:$('#is_agree').val()
+                    is_agree:$("[name='is_agree'][checked]").
                 },
                 url: 'a_start.php',
                 dataType: 'json',
