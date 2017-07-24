@@ -64,7 +64,7 @@ $close_arr = array(); // 关闭坐标集合
 $path = array(); // 路径坐标集合
 
 // 把起始格添加到开启列表 
-$one_H = getH($begin_x,$begin_y,$end_x,$end_y),  // H = 从网格上那个方格移动到终点B的预估移动耗费。
+$one_H = getH($begin_x,$begin_y,$end_x,$end_y);  // H = 从网格上那个方格移动到终点B的预估移动耗费。
 $open_arr[] = array(
         'x' => $begin_x,
         'y' => $begin_y,
