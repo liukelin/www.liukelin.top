@@ -8,7 +8,7 @@ $map_width = 13;
 $map_height = 13;
 
 // 是否允许障碍物边界斜向通过 
-$is_agree = 0;
+$is_agree = 1;
 
 // 消耗 
 $cost_1 = 10; //左右消耗值 
