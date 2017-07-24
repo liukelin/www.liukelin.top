@@ -44,8 +44,8 @@ $is_agree = $is_agree; // 0/1
 $cost = array(10, 14); //左右, 对角 消耗值 
 
 // 设置起始和结束坐标 
-$begin = $location_begin;
-$end = $location_end;
+$location_begin = $location_begin;
+$location_end = $location_end;
 
 // 设置障碍物坐标 
 $hindrance = array(); 
@@ -57,10 +57,11 @@ if ($location_hindrance) {
 }
 
 // 生成地图 并标记障碍物、起点、终点
-$area = createMap($map_width, $map_height, $hindrance);
+$C = new createMap($map_width, $map_height, $hindrance);
+$maps = $C->create_map();
 
 // 生成路径
-$P = new aStart($area, $begin = $begin, $end = $end);
+$P = new aStart($maps, $begin = $location_end, $end = $location_end);
 $path = $P->create_path($is_agree = $is_agree);
 
 //返回json
@@ -71,71 +72,100 @@ exit(json_encode($ret));
 
 
 // 直接输出
-// draw_maps($area, $path);
+// draw_maps($maps, $path);
 
 
-/** 
- *  
- * [createMap 创建地图 并标记出障碍物]
- * @param  [type] $width     地图宽
- * @param  [type] $height    地图高
- * @param  [type] $begin_x   开始横坐标
- * @param  [type] $begin_y   开始纵坐标
- * @param  [type] $end_x     目的地横坐标
- * @param  [type] $end_y     目的地纵坐标
- * @param  [type] $hindrance 障碍物坐标集合
- * @return [type] 地图坐标 X Y status 0 可通过 -1 障碍        
- * array(
- *     [0]=> array(
- *         [0] => array("x" => 0 , "y" => 0 , "status" => 0),
- *         ... 
- *     ),
- *     [1] => array(
- *         [0] => array("x" => 1 , "y" => 0 , "status" => -1),
- *         ...
- *     ),
- *     ...
- * }
- * 
+/**
+ * 创建地图类
  */
-function createMap($width, $height, $hindrance) {
+class createMap{
 
-    // $begin_x = $begin[0]; 
-    // $begin_y = $begin[1]; 
-    // $end_x = $end[0]; 
-    // $end_y = $end[1];
-    
-    $map = array(); 
-    for($i=0; $i<$height; $i++) {
-
-        for($j=0; $j<$width; $j++) {
-
-            $map[$j][$i]['x'] = $j; 
-            $map[$j][$i]['y'] = $i;
-
-            $map[$j][$i]['status'] = 0;
-
-            // 设置障碍物 
-            if (isInHindrance($hindrance, $j, $i)) { 
-                $map[$j][$i]['status'] = -1; 
-            }
-
-            /**
-            // 设置起点 
-            if ($j==$begin_x && $i==$begin_y) { 
-                $map[$j][$i]['status'] = 1; 
-            }
-
-            // 设置终点 
-            if ($j==$end_x && $i==$end_y) { 
-                $map[$j][$i]['status'] = 9; 
-            }
-            **/
-        } 
+    public $width;  // [地图宽]
+    public $height; // [地图高]
+    public $hindrance; // [障碍物坐标集合]
+     
+    public function __construct($width, $height, $hindrance) {
+        $this->width = $width; 
+        $this->height = $height;
+        $this->hindrance = $hindrance;
     }
 
-    return $map; 
+    /** 
+     *  
+     * [createMap 创建地图 并标记出障碍物]
+     * @param  [type] $width     地图宽
+     * @param  [type] $height    地图高
+     * @param  [type] $hindrance 障碍物坐标集合
+     * @return [type] 地图坐标 X Y status 0 可通过 -1 障碍        
+     * array(
+     *     [0]=> array(
+     *         [0] => array("x" => 0 , "y" => 0 , "status" => 0),
+     *         ... 
+     *     ),
+     *     [1] => array(
+     *         [0] => array("x" => 1 , "y" => 0 , "status" => -1),
+     *         ...
+     *     ),
+     *     ...
+     * }
+     * 
+     */
+    public function create_map() {
+        
+        $width = $this->width;
+        $height = $this->height;
+        $hindrance = $this->hindrance;
+        // $begin_x = $begin[0]; 
+        // $begin_y = $begin[1]; 
+        // $end_x = $end[0]; 
+        // $end_y = $end[1];
+
+        $map = array(); 
+        for($i=0; $i<$height; $i++) {
+
+            for($j=0; $j<$width; $j++) {
+
+                $map[$j][$i]['x'] = $j; 
+                $map[$j][$i]['y'] = $i;
+
+                $map[$j][$i]['status'] = 0;
+
+                // 标记障碍物 
+                if ($this->isInHindrance($hindrance, $j, $i)) { 
+                    $map[$j][$i]['status'] = -1; 
+                }
+
+                /**
+                // 标记起点 
+                if ($j==$begin_x && $i==$begin_y) { 
+                    $map[$j][$i]['status'] = 1; 
+                }
+
+                // 标记终点 
+                if ($j==$end_x && $i==$end_y) { 
+                    $map[$j][$i]['status'] = 9; 
+                }
+                **/
+            } 
+        }
+        return $map; 
+    }
+
+    /** 
+    * 设置障碍 
+    * 
+    * @param (类型) (参数名) (描述) 
+    */ 
+    function isInHindrance($arr, $x, $y) { 
+        foreach($arr as $key=>$val) { 
+            if($val[0]==$x && $val[1]==$y) { 
+                return true; 
+            } 
+        } 
+        return false; 
+    }
 }
+
 
 /**
  * a * 寻路
@@ -359,10 +389,13 @@ class aStart{
 
 
     /** 
-    * 判断是否超出地图 
-    * 
-    * @param (类型) (参数名) (描述) 
-    */ 
+     * 判断是否超出地图 
+     * 
+     * @param (类型) (参数名) (描述) 
+     * @param (类型) (参数名) (描述) 
+     * @param (类型) (参数名) (描述) 
+     * @param (类型) (参数名) (描述) 
+     */ 
     function isOutMap($x, $y, $map_width, $map_height) { 
         if($x < 0 || $y < 0 || $x>($map_width - 1) || $y > ($map_height - 1)) { 
             return true; 
@@ -371,10 +404,10 @@ class aStart{
     }
 
     /** 
-    * 判断是否是转角点 
-    *  isCorner($pos_arr[0], $pos_arr[1], $cur_node['x'], $cur_node['y'])) 
-    * @param 所有周边节点中第i和节点的x,y , 当前节点的 cur_x,cur_y
-    */ 
+     * 判断是否是转角点 
+     *  isCorner($pos_arr[0], $pos_arr[1], $cur_node['x'], $cur_node['y'])) 
+     * @param 所有周边节点中第i和节点的x,y , 当前节点的 cur_x,cur_y
+     */ 
     function isCorner($x, $y, $cur_x, $cur_y) { 
         if($x > $cur_x) { 
             if($y > $cur_y) { 
@@ -437,7 +470,10 @@ class aStart{
     * 计算G值 
     *  F = G + H
     *  G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
-    * @param (类型) (参数名) (描述) 
+    * @param (类型) (begin_x) (终点x) 
+    * @param (类型) (begin_y) (终点y) 
+    * @param (类型) (parent_x) (当前坐标x) 
+    * @param (类型) (parent_y) (当前坐标y) 
     */ 
     function getG($begin_x, $begin_y, $parent_x, $parent_y) { 
         $cost_1 = ($this->cost)[0];
@@ -452,7 +488,10 @@ class aStart{
     /** 
     * 计算H值   H = 从网格上那个方格移动到终点B的预估移动耗费。
     * F = G + H
-    * @param (类型) (参数名) (描述) 
+    * @param (类型) (begin_x) (终点x) 
+    * @param (类型) (begin_y) (终点y) 
+    * @param (类型) (parent_x) (当前坐标x) 
+    * @param (类型) (parent_y) (当前坐标y) 
     */ 
     function getH($begin_x, $begin_y, $end_x, $end_y, $cost=10) { 
         $h_cost = abs(($end_x - $begin_x)*$cost); 
@@ -478,7 +517,7 @@ class aStart{
     /** 
     * 取得最小F值的点 
     * 
-    * @param (类型) (参数名) (描述) 
+    * @param (类型) (open_arr) (开启坐标集合) 
     */ 
     function getLowestFNode($open_arr) { 
         usort($open_arr, "sortOpenList"); 
