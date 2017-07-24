@@ -51,10 +51,10 @@ table.hovertable td:hover{
     <input type="button" name="" value="设置障碍物" onClick="set_action(1);" style="border:2px solid black;">
     <input type="button" name="" value="设置起点" onClick="set_action(2);" style="border:2px solid yellow;">
     <input type="button" name="" value="设置终点" onClick="set_action(3);" style="border:2px solid blue;">
-    <label><input name="is_agree" type="checkbox" value="1" />允许斜向通过</label>
+    <label><input id="is_agree" type="checkbox" value="1" />允许斜向通过</label>
     <input type="button" name="" id="gen_path" value="生成路径" style="border:2px solid green;">
 
-    <!-- <input type="button" name="" id="" value="测试" onClick="alert($('#location_1-0').attr('x'))"> -->
+    <!-- <input type="button" name="" id="" value="测试" onClick="test()"> -->
 </div>
 
 <div>
@@ -71,6 +71,10 @@ table.hovertable td:hover{
 <input type="hidden" name="" id="location_end" ><!-- 终点 -->
 
 <script type="text/javascript">
+
+    function test(){
+        alert($("#is_agree").is(":checked")?1:0);
+    }
 
     // 生成地图
     function create_maps(){
@@ -169,7 +173,7 @@ table.hovertable td:hover{
                     location_hindrance:$('#location_hindrance').val(),
                     location_begin:$('#location_begin').val(),
                     location_end:$('#location_end').val(),
-                    is_agree:$("[name='is_agree'][checked]").
+                    is_agree: $("#is_agree").is(":checked")?1:0
                 },
                 url: 'a_start.php',
                 dataType: 'json',
