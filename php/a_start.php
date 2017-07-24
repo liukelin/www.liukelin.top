@@ -186,10 +186,6 @@ class aStart{
         $this->begin = $begin;
         $this->end = $end;
         // $this->hindrance = $hindrance;
-
-        $this->is_agree = $is_agree; 
-        $this->cost = $cost;
-
         $this->$map_width = count($maps); // 计算地图宽
         $this->$map_height = count($maps[0]); // 计算地图高
     }
@@ -201,13 +197,14 @@ class aStart{
      * @return [type]             [路径集合]
      */
     function create_path($is_agree = 1, $cost=array(10, 14)){
-
+        
         $maps = $this->maps;
         $begin = $this->begin;
         $end = $this->end;
         // $hindrance = $this->hindrance;
         $map_width = $this->$map_width;
         $map_height = $this->$map_height;
+
 
         $begin_x = $begin[0];
         $begin_y = $begin[1];
