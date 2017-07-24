@@ -332,8 +332,8 @@ class aStart{
      */
     function getPath($close_arr) { 
         
-        $begin_x = ($this->$begin)[0];
-        $begin_y = ($this->$begin)[1];
+        $begin_x = $this->$begin [0];
+        $begin_y = $this->$begin [1];
 
         $path = array(); 
         $p = $close_arr[count($close_arr)-1]['p_node']; 
