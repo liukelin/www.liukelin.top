@@ -44,7 +44,7 @@ $end_x = $location_end[0];
 $end_y = $location_end[1];
 
 // 设置障碍物坐标 
-// $hindrance = array(); 
+$hindrance = array(); 
 // $hindrance[] = array(1,2); 
 // $hindrance[] = array(1,3); 
 // $hindrance[] = array(1,1); 
