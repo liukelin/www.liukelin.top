@@ -18,19 +18,19 @@ $location_end = $_REQUEST['location_end']; // 终点坐标  x-y
 $is_agree = $_REQUEST['is_agree']==1?1:0;// 是否允许斜向通过
 
 if (!$location_begin) {
-    exit(json_encode(constants(-1001));
+    exit(json_encode(constants(-1001)));
 }
 if (!$location_end) {
-    exit(json_encode(constants(-1002));
+    exit(json_encode(constants(-1002)));
 }
 
 $location_begin = explode('-', $location_begin);
 $location_end = explode('-', $location_end);
 if (count($location_begin)<2) {
-    exit(json_encode(constants(-1001));
+    exit(json_encode(constants(-1001)));
 }
 if (count($location_end)<2) {
-    exit(json_encode(constants(-1002));
+    exit(json_encode(constants(-1002)));
 }
 
 // 地图大小
@@ -120,11 +120,11 @@ while(1) {
             //不在opne列表
             $val_H = getH($pos_arr[0], $pos_arr[1], $end_x, $end_y); 
             $arr[$i] = array(
-                    'x' => $pos_arr[0]; 
-                    'y' => $pos_arr[1]; 
-                    'G' => $total_g; 
-                    'H' => $val_H; 
-                    'F' => $total_g + $val_H; 
+                    'x' => $pos_arr[0],
+                    'y' => $pos_arr[1], 
+                    'G' => $total_g,
+                    'H' => $val_H,
+                    'F' => $total_g + $val_H, 
                     'p_node' => array('x'=>$cur_node['x'], 'y'=>$cur_node['y'])
                 );
             $open_arr[] = $arr[$i]; 
@@ -165,7 +165,7 @@ while(1) {
 // draw_maps($area, $path);
 
 //返回json
-$ret = constants(0)
+$ret = constants(0);
 $ret['path'] = $path;
 exit(json_encode($ret));
 
