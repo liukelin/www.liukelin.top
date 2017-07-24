@@ -16,6 +16,8 @@ $map_height = (int)$_REQUEST['map_height'];
 $location_hindrance = $_REQUEST['location_hindrance']; // 障碍物坐标  |x-y|x-y
 $location_begin = $_REQUEST['location_begin']; // 起点物坐标 x-y
 $location_end = $_REQUEST['location_end']; // 终点坐标  x-y
+$is_agree = isset($_REQUEST['is_agree'])?1:0;// 是否允许斜向通过
+
 if (!$location_begin) {
     exit(json_encode(array('c'=>-1,'msg'=>'请选择起点')));
 }
@@ -31,7 +33,7 @@ $map_width = $map_width;  // x
 $map_height = $map_height; // y
 
 // 是否允许障碍物边界斜向通过 
-$is_agree = 0;
+$is_agree; // 0/1
 
 // 消耗 
 $cost_1 = 10; //左右消耗值 
@@ -45,9 +47,6 @@ $end_y = $location_end[1];
 
 // 设置障碍物坐标 
 $hindrance = array(); 
-// $hindrance[] = array(1,2); 
-// $hindrance[] = array(1,3); 
-// $hindrance[] = array(1,1); 
 if ($location_hindrance) {
     $location_hindrance = array_filter(explode('|', $location_hindrance));
     foreach ($location_hindrance as $key => $val) {
@@ -65,12 +64,15 @@ $close_arr = array(); // 关闭坐标集合
 $path = array(); // 路径坐标集合
 
 // 把起始格添加到开启列表 
-$open_arr[0]['x'] = $begin_x; 
-$open_arr[0]['y'] = $begin_y; 
-$open_arr[0]['G'] = 0;      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
-$open_arr[0]['H'] = getH($begin_x,$begin_y,$end_x,$end_y);  // H = 从网格上那个方格移动到终点B的预估移动耗费。
-$open_arr[0]['F'] = $open_arr[0]['H'];  // F = G + H
-$open_arr[0]['p_node'] = array($begin_x, $begin_y);
+$open_arr[] = array(
+        'x' => $begin_x; 
+        'y' => $begin_y; 
+        'G' => 0;      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
+        'H' => getH($begin_x,$begin_y,$end_x,$end_y);  // H = 从网格上那个方格移动到终点B的预估移动耗费。
+        'F' => $open_arr[0]['H'];  // F = G + H
+        'p_node' => array($begin_x, $begin_y);
+    );
+
 
 // 循环 
 while(1) {
@@ -252,21 +254,28 @@ function createMap($width, $height, $begin_x, $begin_y, $end_x, $end_y, $hindran
 }
 
 /**
- * [getRoundNode 取坐标周边节点 （包括斜向周边）]
+ * [getRoundNode 取坐标周边节点 （包括斜向周边）] 
+ *  需要切换 4方向 8方向
  * @param  [type] $x [X坐标]
  * @param  [type] $y [y坐标]
  * @return [type]    [description]
  */
 function getRoundNode($x, $y) { 
-    $round_arr = array(); 
-    $round_arr[0] = array($x-1,$y-1); 
-    $round_arr[1] = array($x-1,$y); 
-    $round_arr[2] = array($x-1,$y+1); 
-    $round_arr[3] = array($x,$y-1); 
-    $round_arr[4] = array($x,$y+1); 
-    $round_arr[5] = array($x+1,$y-1); 
-    $round_arr[6] = array($x+1,$y); 
-    $round_arr[7] = array($x+1,$y+1);
+    global $is_agree;
+
+    $round_arr = array(
+            array($x-1,$y);    //左
+            array($x,$y-1);    //下
+            array($x,$y+1);    //上
+            array($x+1,$y);    //右
+        );
+
+    if ($is_agree==1) {
+        $round_arr[] = array($x-1,$y-1);  //左下
+        $round_arr[] = array($x-1,$y+1);  //左上
+        $round_arr[] = array($x+1,$y-1);  //右下
+        $round_arr[] = array($x+1,$y+1);  // 右上
+    }
 
     return $round_arr; 
 }
