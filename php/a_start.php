@@ -9,14 +9,6 @@ error_reporting(E_ALL | E_STRICT);
  * 2017.7.23 
  */
 
-$_REQUEST = array(
-        'map_width'=>13,
-        'map_height'=>13,
-        'location_hindrance'=>'|10-5',
-        'location_begin'=>'0-0',
-        'location_end'=>'10-10'
-    );
-
 // 接受参数
 $map_width = (int)$_REQUEST['map_width']; 
 $map_height = (int)$_REQUEST['map_height']; 
