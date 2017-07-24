@@ -33,7 +33,7 @@ $map_width = $map_width;  // x
 $map_height = $map_height; // y
 
 // 是否允许障碍物边界斜向通过 
-$is_agree; // 0/1
+$is_agree = $is_agree; // 0/1
 
 // 消耗 
 $cost_1 = 10; //左右消耗值 
@@ -88,7 +88,7 @@ while(1) {
     $close_arr[] = $cur_node;
     
     //取周边节点
-    $round_list = getRoundNode($cur_node['x'], $cur_node['y']); 
+    $round_list = getRoundNode($cur_node['x'], $cur_node['y'], $is_agree); 
     $round_num = count($round_list);
     // var_dump($round_list);die();
     
@@ -261,8 +261,8 @@ function createMap($width, $height, $begin_x, $begin_y, $end_x, $end_y, $hindran
  * @param  [type] $y [y坐标]
  * @return [type]    [description]
  */
-function getRoundNode($x, $y) { 
-    global $is_agree;
+function getRoundNode($x, $y, $is_agree=1) { 
+    // global $is_agree;
 
     $round_arr = array(
             array($x-1,$y),    //左
