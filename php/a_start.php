@@ -16,8 +16,11 @@ $map_height = (int)$_REQUEST['map_height'];
 $location_hindrance = $_REQUEST['location_hindrance']; // 障碍物坐标  |x-y|x-y
 $location_begin = $_REQUEST['location_begin']; // 起点物坐标 x-y
 $location_end = $_REQUEST['location_end']; // 终点坐标  x-y
-if (!$location_hindrance || !$location_begin || !$location_end) {
-    exit(json_encode(array('c'=>-1,'msg'=>'参数错误')));
+if (!$location_begin) {
+    exit(json_encode(array('c'=>-1,'msg'=>'请选择起点')));
+}
+if (!$location_end) {
+    exit(json_encode(array('c'=>-1,'msg'=>'请选择终点')));
 }
 
 $location_begin = explode('-', $location_begin);
@@ -45,9 +48,11 @@ $end_y = $location_end[1];
 // $hindrance[] = array(1,2); 
 // $hindrance[] = array(1,3); 
 // $hindrance[] = array(1,1); 
-$location_hindrance = array_filter(explode('|', $location_hindrance));
-foreach ($location_hindrance as $key => $val) {
-    $hindrance[$key] = explode('-', $val);
+if ($location_hindrance) {
+    $location_hindrance = array_filter(explode('|', $location_hindrance));
+    foreach ($location_hindrance as $key => $val) {
+        $hindrance[$key] = explode('-', $val);
+    }
 }
 
 
