@@ -275,7 +275,7 @@ function getRoundNode($x, $y) {
         $round_arr[] = array($x-1,$y-1);  //左下
         $round_arr[] = array($x-1,$y+1);  //左上
         $round_arr[] = array($x+1,$y-1);  //右下
-        $round_arr[] = array($x+1,$y+1);  // 右上
+        $round_arr[] = array($x+1,$y+1);  //右上
     }
 
     return $round_arr; 
