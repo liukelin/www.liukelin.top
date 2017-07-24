@@ -65,12 +65,12 @@ $path = array(); // 路径坐标集合
 
 // 把起始格添加到开启列表 
 $open_arr[] = array(
-        'x' => $begin_x; 
-        'y' => $begin_y; 
-        'G' => 0;      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
-        'H' => getH($begin_x,$begin_y,$end_x,$end_y);  // H = 从网格上那个方格移动到终点B的预估移动耗费。
-        'F' => $open_arr[0]['H'];  // F = G + H
-        'p_node' => array($begin_x, $begin_y);
+        'x' => $begin_x,
+        'y' => $begin_y,
+        'G' => 0,      // G = 从起点A，沿着产生的路径，移动到网格上指定方格的移动耗费。
+        'H' => getH($begin_x,$begin_y,$end_x,$end_y),  // H = 从网格上那个方格移动到终点B的预估移动耗费。
+        'F' => $open_arr[0]['H'],  // F = G + H
+        'p_node' => array($begin_x, $begin_y),
     );
 
 
@@ -264,10 +264,10 @@ function getRoundNode($x, $y) {
     global $is_agree;
 
     $round_arr = array(
-            array($x-1,$y);    //左
-            array($x,$y-1);    //下
-            array($x,$y+1);    //上
-            array($x+1,$y);    //右
+            array($x-1,$y),    //左
+            array($x,$y-1),    //下
+            array($x,$y+1),    //上
+            array($x+1,$y),    //右
         );
 
     if ($is_agree==1) {
