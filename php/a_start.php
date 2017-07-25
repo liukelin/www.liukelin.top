@@ -777,9 +777,11 @@ $maps = $mapsObj->getMaps(); // 获取地图
 // 生成路径
 $pathObj = new Paths($mapsObj, $location_begin, $location_end);
 
+// 重新配置
 $pathObj->is_agree = $is_agree; // 配置是否斜面
-// $pathObj->cost = array(10, 14); // 配置正向、斜向 消耗值
-// $pathObj->createPath(); // 重新初始化路径
+$pathObj->cost = array(10, 14); // 配置正向、斜向 消耗值
+$pathObj->createPath(); // 初始化路径, 修改了配置需要重新初始化路径
+
 $path = $pathObj->getPath(); //获取路径
 
 //返回json
