@@ -10,14 +10,14 @@ error_reporting(E_ALL | E_STRICT);
  * 2017.7.23 
  */
 
-// $_REQUEST = array(
-//         'map_width'=>5,
-//         'map_height'=>5,
-//         'location_hindrance'=>'|3-4',
-//         'location_begin'=>'2-2',
-//         'location_end'=>'3-3',
-//         'is_agree'=>1
-//     );
+$_REQUEST = array(
+        'map_width'=>5,
+        'map_height'=>5,
+        'location_hindrance'=>'|0-1',
+        'location_begin'=>'0-0',
+        'location_end'=>'0-3',
+        'is_agree'=>1
+    );
 
 
 // 接受参数
@@ -63,9 +63,7 @@ $hindrance = array();
 if ($location_hindrance) {
     $location_hindrance = array_filter(explode('|', $location_hindrance));
     foreach ($location_hindrance as $key => $val) {
-        if (count($val)>=2) {
-           $hindrance[$key] = explode('-', $val);
-        }
+        $hindrance[$key] = explode('-', $val);
     }
 }
 
@@ -783,6 +781,7 @@ $pathObj->cost = array(10, 14); // 配置正向、斜向 消耗值
 $pathObj->createPath(); // 初始化路径, 修改了配置需要重新初始化路径
 
 $path = $pathObj->getPath(); //获取路径
+
 
 //返回json
 $ret = constants(0);
