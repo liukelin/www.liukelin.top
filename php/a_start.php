@@ -80,7 +80,7 @@ interface InterfaceMaps {
     public function mapsSize();
     // 判断坐标是否出界
     public function isOutMap($location);  
-    // 判断坐标属性 起点/终点/障碍/正常  0可通过 -1障碍 1起点 9终点   
+    // 判断坐标属性 1起点/9终点/-1障碍/0正常   
     public function locationType($location);  
     // 获取地图
     public function getMaps();
