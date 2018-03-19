@@ -581,6 +581,19 @@ window.onload = function(){
     $('.popup').click(function(e){
       e.stopPropagation();
     });
+
+
+    var htt=location.protocol;
+        $.ajax({
+            type: 'post',
+            data:{
+                site:window.location.href
+            },
+            url: htt+'//bi.liukelin.top/bi/web_bi/',
+            dataType: 'json'
+        });
+
+        
   </script>
 
   
